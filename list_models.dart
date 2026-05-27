@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 void main() async {
-  final apiKey = 'AIzaSyBRR0rxGqV_CMdtKvELF-ZSbiDUz-RwOwU';
+  final apiKey = 'AIzaSyCEz2rCERdF1Q1Hbmfe-oaddNfS9OefUF4';
   final url = Uri.parse('https://generativelanguage.googleapis.com/v1beta/models?key=$apiKey');
   
   final request = await HttpClient().getUrl(url);

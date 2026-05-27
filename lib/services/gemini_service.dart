@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'dart:developer' as developer;
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -182,7 +183,7 @@ Do NOT output any markdown tags (like ```json) or explanation text outside the J
         if (apiKey == defaultApiKey) {
           throw Exception('Failed to connect to backend server. Details: $e');
         }
-        print('Backend failed: $e. Falling back to direct API connection.');
+        developer.log('Backend failed: $e. Falling back to direct API connection.', name: 'GeminiService', error: e);
       }
     }
 
@@ -413,7 +414,7 @@ Do NOT output any markdown tags (like ```json) or explanation text outside the J
         if (apiKey == defaultApiKey) {
           throw Exception('Failed to connect to backend server. Details: $e');
         }
-        print('Backend failed: $e. Falling back to direct API connection.');
+        developer.log('Backend failed: $e. Falling back to direct API connection.', name: 'GeminiService', error: e);
       }
     }
 
@@ -819,7 +820,7 @@ Keep the tone helpful, professional, and friendly, like a workshop mechanic or a
         if (apiKey == defaultApiKey) {
           return 'I apologize, I could not connect to the assistant server. Details: $e';
         }
-        print('Backend chat failed: $e. Falling back to direct API connection.');
+        developer.log('Backend chat failed: $e. Falling back to direct API connection.', name: 'GeminiService', error: e);
       }
     }
 
