@@ -9,7 +9,6 @@ import 'widgets/chat_assistant_view.dart';
 import 'widgets/mvp_docs_view.dart';
 import 'widgets/app_logo.dart';
 
-import 'services/gemini_service.dart';
 
 void main() {
   runApp(const VehicleDetectorApp());
@@ -96,117 +95,7 @@ class _MainDashboardState extends State<MainDashboard> {
     });
   }
 
-  void _showSettingsDialog() async {
-    final currentKey = await GeminiService.getApiKey() ?? GeminiService.defaultApiKey;
-    final controller = TextEditingController(text: currentKey);
 
-    if (!mounted) return;
-    showDialog(
-      context: context,
-      builder: (dialogContext) => AlertDialog(
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-          side: const BorderSide(color: Colors.cyan, width: 1.5),
-        ),
-        title: Row(
-          children: [
-            const Icon(Icons.settings, color: Colors.cyan),
-            const SizedBox(width: 12),
-            Text(
-              'Gemini AI Settings',
-              style: GoogleFonts.outfit(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-          ],
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'To scan vehicles and chat with the AI, you need a Google Gemini API Key. It is 100% free.',
-              style: TextStyle(color: Colors.grey.shade700, fontSize: 12.5, height: 1.4),
-            ),
-            const SizedBox(height: 12),
-            const Text(
-              'Get a free API key at: aistudio.google.com',
-              style: TextStyle(
-                color: Colors.cyan,
-                fontSize: 12.5,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 18),
-            const Text(
-              'Gemini API Key',
-              style: TextStyle(color: Colors.black54, fontSize: 11, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              controller: controller,
-              obscureText: true,
-              style: const TextStyle(color: Colors.black87, fontSize: 13, fontFamily: 'monospace'),
-              decoration: InputDecoration(
-                hintText: 'Enter API Key (AIzaSy...)',
-                hintStyle: const TextStyle(color: Colors.black26, fontSize: 13),
-                filled: true,
-                fillColor: Colors.grey.shade100,
-                isDense: true,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: Colors.black.withAlpha(20)),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Colors.cyan),
-                ),
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () async {
-              final navigator = Navigator.of(dialogContext);
-              await GeminiService.clearApiKey();
-              navigator.pop();
-              if (mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('API Key reset to default key')),
-                );
-              }
-            },
-            child: const Text('Reset Default', style: TextStyle(color: Colors.black54, fontSize: 12)),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('Cancel', style: TextStyle(color: Colors.black87, fontSize: 12)),
-          ),
-          TextButton(
-            onPressed: () async {
-              final newKey = controller.text.trim();
-              if (newKey.isNotEmpty) {
-                final navigator = Navigator.of(dialogContext);
-                await GeminiService.saveApiKey(newKey);
-                navigator.pop();
-                if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Custom API Key saved successfully!')),
-                  );
-                }
-              }
-            },
-            child: const Text('Save Key', style: TextStyle(color: Colors.cyan, fontWeight: FontWeight.bold, fontSize: 12)),
-          ),
-        ],
-      ),
-    );
-  }
 
   Widget _buildNavItem(int index, IconData unselectedIcon, IconData selectedIcon, String label) {
     final isSelected = _currentIndex == index;
@@ -374,10 +263,6 @@ class _MainDashboardState extends State<MainDashboard> {
                         ),
                         onPressed: () => _toggleBookmark(_activeVehicle!.id),
                       ),
-                    IconButton(
-                      icon: const Icon(Icons.settings, color: Colors.cyan),
-                      onPressed: _showSettingsDialog,
-                    ),
                     const SizedBox(width: 8),
                   ],
                 )
