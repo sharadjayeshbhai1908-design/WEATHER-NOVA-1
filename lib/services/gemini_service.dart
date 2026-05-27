@@ -7,7 +7,7 @@ import '../models/vehicle.dart';
 
 class GeminiService {
   static const String _apiKeyPrefsKey = 'gemini_api_key';
-  static const String defaultApiKey = 'AIzaSyBRR0rxGqV_CMdtKvELF-ZSbiDUz-RwOwU';
+  static const String defaultApiKey = 'AIzaSyCEz2rCERdF1Q1Hbmfe-oaddNfS9OefUF4';
 
   // Set this to your live Render/Vercel backend URL (e.g. 'https://gemini-vehicle-scanner-api.onrender.com')
   static const String backendUrl = 'http://localhost:3000';
