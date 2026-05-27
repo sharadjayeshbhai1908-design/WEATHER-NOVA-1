@@ -16,9 +16,7 @@ class GeminiService {
 
   // Load saved API Key
   static Future<String?> getApiKey() async {
-    final prefs = await SharedPreferences.getInstance();
-    final savedKey = prefs.getString(_apiKeyPrefsKey);
-    return savedKey ?? defaultApiKey;
+    return defaultApiKey;
   }
 
   // Save API Key
