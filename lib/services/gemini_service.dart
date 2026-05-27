@@ -10,7 +10,7 @@ class GeminiService {
   static const String defaultApiKey = 'AIzaSyCEz2rCERdF1Q1Hbmfe-oaddNfS9OefUF4';
 
   // Set this to your live Render/Vercel backend URL (e.g. 'https://gemini-vehicle-scanner-api.onrender.com')
-  static const String backendUrl = 'http://localhost:3000';
+  static const String backendUrl = 'https://ai-vehicle-detection.onrender.com';
   static const bool useBackend = true;
 
   // Load saved API Key
