@@ -66,12 +66,12 @@ app.post('/api/analyze', async (req, res) => {
       const response = await result.response;
       textResult = response.text();
     } catch (e) {
-      console.warn('gemini-2.5-flash failed, falling back to gemini-1.5-flash. Error:', e.message);
+      console.warn('gemini-2.5-flash failed, falling back to gemini-2.0-flash. Error:', e.message);
       attemptError = e;
 
-      // Fallback: Gemini 1.5 Flash (higher RPM/RPD limits)
+      // Fallback: Gemini 2.0 Flash
       try {
-        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+        const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
         const result = await model.generateContent([prompt, ...imageParts]);
         const response = await result.response;
         textResult = response.text();
@@ -109,12 +109,12 @@ app.post('/api/chat', async (req, res) => {
       const response = await result.response;
       textResult = response.text();
     } catch (e) {
-      console.warn('gemini-2.5-flash chat failed, falling back to gemini-1.5-flash. Error:', e.message);
+      console.warn('gemini-2.5-flash chat failed, falling back to gemini-2.0-flash. Error:', e.message);
       attemptError = e;
 
-      // Fallback: Gemini 1.5 Flash
+      // Fallback: Gemini 2.0 Flash
       try {
-        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+        const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
         const result = await model.generateContent([prompt]);
         const response = await result.response;
         textResult = response.text();

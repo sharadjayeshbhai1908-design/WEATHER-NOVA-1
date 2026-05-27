@@ -433,12 +433,11 @@ Do NOT output any markdown tags (like ```json) or explanation text outside the J
       ]);
     } catch (e) {
       lastError = e;
-      
-      // Fallback: wait 1 second and try the highly stable gemini-1.5-flash model
+      // Fallback: wait 1 second and try the highly stable gemini-2.0-flash model
       await Future.delayed(const Duration(seconds: 1));
       try {
         final fallbackModel = GenerativeModel(
-          model: 'gemini-1.5-flash',
+          model: 'gemini-2.0-flash',
           apiKey: apiKey,
         );
         response = await fallbackModel.generateContent([
@@ -832,7 +831,7 @@ Keep the tone helpful, professional, and friendly, like a workshop mechanic or a
     } catch (e) {
       // Fallback
       final fallbackModel = GenerativeModel(
-        model: 'gemini-1.5-flash',
+        model: 'gemini-2.0-flash',
         apiKey: apiKey,
       );
       response = await fallbackModel.generateContent([Content.text(prompt)]);
